@@ -1,19 +1,21 @@
 <?php 
-			
 	class Classkategori{
+
 		public function create($kategori_buku){
 			include 'Koneksi.php';
-			$sql = "INSERT INTO tbl_kategori (kategori_buku) VALUES (?)";
+			$sql = "INSERT INTO tbl_kategori 
+			(kategori_buku) VALUES (?)";
 			$stmt = $conn->prepare($sql);
-			$stmt->bind_param('s',$kategori_buku);
+			$stmt->xml_error_string('s',$kategori_buku);
 			$query = $stmt->execute();
 			$stmt->close();
 			$conn->close();
-			var_dump($query);
+			return $query;
 		}
 		public function readbyid($id_kategori_buku){
 			include 'Koneksi.php';
-			$sql = "SELECT * FROM tbl_kategori WHERE id_kategori_buku = '".$id_kategori_buku."'";
+			$sql = "SELECT * FROM tbl_kategori WHERE 
+			id_kategori_buku = '".$id_kategori_buku."'";
 			$query = $conn->query($sql);
 			$conn->close();
 			return $query;
@@ -25,12 +27,14 @@
 			$conn->close();
 			return $query;
 		}
-		public function updatebyid($id_kategori_buku,$kategori_buku){
+		public function updatebyid($id_kategori_buku,
+		   $kategori_buku){
 			include 'Koneksi.php';
-			$sql = "UPDATE tbl_kategori SET
+			$sql = "UPDATE tbl_kategori SET 
 			kategori_buku = ? WHERE id_kategori_buku = ?";
 			$stmt = $conn->prepare($sql);
-			$stmt->bind_param('si',$kategori_buku,$id_kategori_buku);
+			$stmt->bind_param('si',$kategori_buku,
+			$id_kategori_buku);
 			$query = $stmt->execute();
 			$stmt->close();
 			$conn->close();
@@ -38,7 +42,8 @@
 		}
 		public function deletebyid($id_kategori_buku){
 			include 'Koneksi.php';
-			$sql = "DELETE FROM tbl_kategori WHERE id_kategori_buku = ?";
+			$sql = "DELETE FROM tbl_kategori WHERE 
+			id_kategori_buku = ?";
 			$stmt = $conn->prepare($sql);
 			$stmt->bind_param('i',$id_kategori_buku);
 			$query = $stmt->execute();
@@ -47,4 +52,4 @@
 			return $query;
 		}
 	}
-?>
+ ?>
